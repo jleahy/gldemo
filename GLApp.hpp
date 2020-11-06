@@ -12,9 +12,9 @@ public:
     static const float MOVEMENT_SPEED;
     static const float LOOK_SPEED;
 
-	GLApp();
+    GLApp();
 
-	void resize(int w, int h);
+    void resize(int w, int h);
     void onKey(char key, bool pressed);
     void onMouse(int dx, int dy);
 
@@ -31,7 +31,7 @@ private:
         KEY_D = 8,
     };
 
-	Matrix4			_transformMatrix;
+    Matrix4         _transformMatrix;
 
     // Vertex format is x,y,z as signed shorts
     BufferAllocator     _vertexBuffer;
@@ -40,8 +40,8 @@ private:
     BufferAllocator::Ref    _vertexRef;
     BufferAllocator::Ref    _indexRef;
 
-	ShaderProgram	    _mainShader;
-	unsigned    	    _vertexArray;
+    ShaderProgram       _mainShader;
+    unsigned            _vertexArray;
     unsigned            _projectionViewMatrixLoc;
 
     float           _cameraX;

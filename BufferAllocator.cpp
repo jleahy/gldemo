@@ -49,7 +49,7 @@ BufferAllocator::BufferAllocator(unsigned initialSz, unsigned target, unsigned u
     glBindBuffer(target, 0);
 
     // Add the initial range
-	_regions.emplace_front();
+    _regions.emplace_front();
     Regions::iterator it = _regions.begin();
     it->start = 0;
     it->end = initialSz;

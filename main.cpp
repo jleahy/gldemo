@@ -50,7 +50,7 @@ void framebuffer_size_callback(GLFWwindow * window, int width, int height) {
 
 
 int main() {
-	// Initialize GLFW
+    // Initialize GLFW
     if (!glfwInit()) {
         return 1;
     }

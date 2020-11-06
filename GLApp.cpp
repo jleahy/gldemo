@@ -28,28 +28,28 @@ GLApp::GLApp() :
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // Link sharer
-	Shader vertexShader(GL_VERTEX_SHADER);
-	vertexShader.load(
+    Shader vertexShader(GL_VERTEX_SHADER);
+    vertexShader.load(
 "#version 330 core\n"
 "#line " S__LINE__ "\n"
 "in vec3 vertexPosition;\n"
 "uniform mat4 projectionViewMatrix;\n"
 "void main() {\n"
-"	gl_Position = projectionViewMatrix * vec4(vertexPosition, 1.0);\n"
+"   gl_Position = projectionViewMatrix * vec4(vertexPosition, 1.0);\n"
 "}\n"
-	);
-	Shader fragmentShader(GL_FRAGMENT_SHADER);
-	fragmentShader.load(
+    );
+    Shader fragmentShader(GL_FRAGMENT_SHADER);
+    fragmentShader.load(
 "#version 330 core\n"
 "#line " S__LINE__ "\n"
 "out vec4 color;\n"
 "void main() {\n"
-"	color = vec4(1.0, 0.0, 0.0, 1.0);\n"
+"   color = vec4(1.0, 0.0, 0.0, 1.0);\n"
 "}\n"
-	);
-	_mainShader.attach(std::move(vertexShader));
-	_mainShader.attach(std::move(fragmentShader));
-	_mainShader.link();
+    );
+    _mainShader.attach(std::move(vertexShader));
+    _mainShader.attach(std::move(fragmentShader));
+    _mainShader.link();
     _projectionViewMatrixLoc = _mainShader.getUniformLoc("projectionViewMatrix");
 
     // Allocate buffers
@@ -57,11 +57,11 @@ GLApp::GLApp() :
     _indexBuffer = BufferAllocator(1024, GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
 
     // Load some data
-	static const float data[] = {
-		-0.5f, -0.5f, -3.5f,
-		0.5f, -0.5f, -3.5f,
-		0.0f, 0.5f, -3.5f,
-	};
+    static const float data[] = {
+        -0.5f, -0.5f, -3.5f,
+        0.5f, -0.5f, -3.5f,
+        0.0f, 0.5f, -3.5f,
+    };
     _vertexRef = _vertexBuffer.allocate((void*)data, sizeof(data));
     static const int indices[] = {
         0, 1, 2
@@ -73,19 +73,19 @@ GLApp::GLApp() :
     glBindVertexArray(_vertexArray);
 
     glBindBuffer(GL_ARRAY_BUFFER, *_vertexBuffer);
-	glVertexAttribPointer(_mainShader.getAttributeLoc("vertexPosition"), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glVertexAttribPointer(_mainShader.getAttributeLoc("vertexPosition"), 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *_indexBuffer);
 
-	glBindVertexArray(0);
+    glBindVertexArray(0);
 }
 
 
 void GLApp::resize(int w, int h) {
     // Set viewport
-	glViewport(0, 0, w, h);
+    glViewport(0, 0, w, h);
 
     // Save aspect ratio
     _aspectRatio = float(w) / float(h);
@@ -112,19 +112,19 @@ void GLApp::render() {
     updateMatrices();
 
     // Clear buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Setup shader
-	glUseProgram(*_mainShader);
+    glUseProgram(*_mainShader);
     glUniformMatrix4fv(_projectionViewMatrixLoc, 1, GL_TRUE, _transformMatrix.data());
 
     // Indexed draw
-	glBindVertexArray(_vertexArray);
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+    glBindVertexArray(_vertexArray);
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 
     // Disable shader
-	glUseProgram(0);
+    glUseProgram(0);
 }
 
 
